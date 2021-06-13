@@ -9,6 +9,9 @@ async function getData() {
     return await res.json()
 }
 
+// replace i data to feather icon
+feather.replace()
+
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -24,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 card += `
             
                 <div class="col-3 text-center my-3">
-                <a href="./detail.html?id=${data.id}|page=1">
+                <a href="./hadith.html?${data.id}|1">
                     <div class="card-hadith">
                         <i data-feather="book-open"></i>
                         <h5>${data.name}</h5>
