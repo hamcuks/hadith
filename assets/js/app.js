@@ -1,92 +1,76 @@
 
-let bodyHadith = document.querySelector('.body-hadith')
-let darkModeButton = document.querySelector('#dark-mode-switcher')
-let body = document.querySelector('body')
 let cardHadith = ''
+let bodyHadith = document.querySelector('.body-hadith')
 
-async function getData() {
-    const res = await fetch('https://api.hadith.sutanlab.id/books/')
-    return await res.json()
-}
-
-// replace i data to feather icon
-feather.replace()
-
-
-document.addEventListener('DOMContentLoaded', async () => {
-
-    // show loading data feedback
-    bodyHadith.innerHTML = `
-        <div class="text-center align-self-center">
-            <h1>Sedang memuat data...</>
-        </div>
-    `
-    await getData().then(res => {
+const showHadithsList = async (data) => {
+    try {
         let card = ''
-            res.data.forEach((data) => {
-                card += `
-            
-                <div class="col-3 text-center my-3">
+        data.forEach(data => {
+            card += `
+            <div class="col-3 text-center my-3">
                 <a href="./hadith.html?${data.id}|1">
                     <div class="card-hadith">
                         <i data-feather="book-open"></i>
                         <h5>${data.name}</h5>
                         <p>${data.available} data</p>
                     </div>
-                    
-            </a>
-                </div>
-            `
-            })
-
-            bodyHadith.innerHTML = card
-
-            cardHadith = document.querySelectorAll('.card-hadith')
-
-            // replace i data to feather icon
-            feather.replace()
-    }).catch(e => {
-        bodyHadith.innerHTML = `
-            <div class="text-center align-self-center">
-                <h1>Gagal mengambil data. Silahkan refresh website</>
+                </a>
             </div>
+            `
+        });
+
+
+        bodyHadith.innerHTML = card
+        cardHadith = document.querySelectorAll('.card-hadith')
+    } catch (error) {
+        bodyHadith.innerHTML = `
+            <h4 class="text-center align-self-center">Terjadi Kesalahan. Silahkan Refresh halaman</h4>
         `
-    })
+    }
+}
 
-    darkModeButton.addEventListener('click', () => {
-        if (darkModeButton.checked) {
-            localStorage.setItem('dark-mode', true)
-    
-            body.classList.add('dark-mode')
-            bodyHadith.classList.add('dark-mode')
-            cardHadith.forEach(card => card.classList.add('dark-mode'))
-    
-        } else {
-            localStorage.setItem('dark-mode', false)
-    
-            body.classList.remove('dark-mode')
-            bodyHadith.classList.remove('dark-mode')
-            cardHadith.forEach(card => card.classList.remove('dark-mode'))
-        }
-    })
-})
+const fetchHadithList = async () => {
+    try {
+        const res = await axios.get('https://api.hadith.sutanlab.id/books/').catch(err => { throw new Error(err) })
+        return res.data.data
+    } catch (error) {
+        bodyHadith.innerHTML = `
+            <h4 class="text-center align-self-center">Terjadi Kesalahan. Silahkan Refresh halaman</h4>
+        `
+    }
+}
 
+window.addEventListener('load', async () => {
+    bodyHadith.innerHTML = `
+        <h1 class="text-center align-self-center">Memuat Data</h1>
+    `
+    await fetchHadithList()
+        .then(async res => {
+            showHadithsList(res)
+            await feather.replace()
+        })
+        .catch(e => console.log(e))
 
-window.addEventListener("load", async function () {
-    let darkModeState = localStorage.getItem('dark-mode');
+    let darkModeState = localStorage.getItem('dark-mode')
 
     if (darkModeState == 'true') {
-        darkModeButton.checked = true
-
-        body.classList.add('dark-mode')
-        bodyHadith.classList.add('dark-mode')
-
-        
-        await getData().then(res => cardHadith.forEach(card => card.classList.add('dark-mode'))) 
+        turnOnDarkMode()
+        darkModeSwitch.checked = true
     } else {
-        $('body, .body-hadith, .card-hadith').removeClass('dark-mode')
-        darkModeButton.checked = false
+        turnOffDarkMode()
+        darkModeSwitch.checked = false
     }
-
-    console.log(darkModeState)
 })
+
+let darkModeSwitch = document.querySelector('#dark-mode-switch')
+
+darkModeSwitch.addEventListener('click', () => {
+    if (darkModeSwitch.checked) {
+        turnOnDarkMode()
+        localStorage.setItem('dark-mode', true)
+    } else {
+        turnOffDarkMode()
+        localStorage.setItem('dark-mode', false)
+    }
+})
+

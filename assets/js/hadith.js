@@ -25,7 +25,7 @@ const showHadith = async (data) => {
             <p id="arabic-hadith">${data.arab}</p>
             <hr>
             <p id="idn-hadith">${data.idn}</p>
-        ` : `<h1 class="text-center">Hadith ${data.name} nomor ${data.page} tidak ditemukan</h1>`
+        ` : `<h1 class="text-center">Hadith ${data.name} nomor ${data.num} tidak ditemukan</h1>`
     } catch (e) {
         return e;
     }
@@ -99,11 +99,11 @@ const backHadith = async () => {
 
 
 
-document.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('DOMContentLoaded', async () => {
 
 
     // disable back button if current page is 1
-    if (page == 1) {
+    if (page <= 1) {
         buttonPrev.disabled = true
     }
 
@@ -128,4 +128,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // replace i data to feather icon
     feather.replace()
+})
+
+window.addEventListener('load', () => {
+    let darkModeState = localStorage.getItem('dark-mode')
+
+    if (darkModeState == 'true') {
+        turnOnDarkMode()
+    } else {
+        turnOffDarkMode()
+    }
 })

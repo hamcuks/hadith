@@ -1,46 +1,49 @@
+:root {
+    --bg-body: white;
+    --bg-body-card: #E6ECEB;
+    --bg-card: white;
+    --text-color: #222726;
+}
+
+.dark-mode {
+    --bg-body: #1e1e28!important;
+    --bg-body-card: #272731!important;
+    --bg-card: #353544!important;
+    --text-color: #E6ECEB!important;
+    transition-property: background, color;
+    transition-duration: .3s;
+}
+
+body {
+    background: var(--bg-body);
+    color: var(--text-color);
+    transition-property: background, color;
+    transition-duration: .3s;
+}
+
 a {
     text-decoration: none;
-    color: #222726;
+    color: var(--text-color);
 }
 
 a:hover {
     color: #2ec7b5;
 }
 
-.dark-mode {
-    transition: background .1s;
-    color: #E6ECEB!important;
-}
-
-body {
-    transition: background .1s;
-}
-
-body.dark-mode {
-    background-color: #1e1e28;
-    color: #E6ECEB!important;
+a.navbar-brand {
+    color: #E6ECEB;
 }
 
 .body-hadith {
-    background-color: #E6ECEB;
+    background-color: var(--bg-body-card);
     border-radius: 20px;
     min-height: 85vh;
-    transition: background .1s;
-}
-
-.body-hadith.dark-mode {
-    background-color: #272731;
 }
 
 .card-hadith {
-    background-color: white;
+    background-color: var(--bg-card);
     padding: 20px;
     border-radius: 20px;
-    transition: background .1s;
-}
-
-.card-hadith.dark-mode {
-    background-color: #353544;
 }
 
 .card-hadith svg {
@@ -70,8 +73,7 @@ body.dark-mode {
     height: 2em;
     overflow: hidden;
     cursor: pointer;
-    background: white;
-    transition: background .1s;
+    background: var(--bg-body);
 }
 
 .dark-mode-switch:after {
@@ -81,14 +83,13 @@ body.dark-mode {
     height: 1.6em;
     top: 0.2em;
     left: 0.2em;
-    background: rgb(214, 214, 214);
+    background: var(--bg-body-card);
     border-radius: 50%;
     box-shadow: 1px 0 5px rgba(black, 0.2);
-    transition: background .1s;
 }
 
 .dark-mode-switch:checked {
-    background: #353544;
+    background: var(--bg-body-card);
 }
 
 .dark-mode-switch:checked:after {
@@ -103,9 +104,10 @@ body.dark-mode {
 
 .navbar-detail-hadith {
     background-color: #1A645B;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px 20px;
 }
+
 svg {
     vertical-align: text-bottom;
 }
@@ -146,4 +148,11 @@ svg {
 
 #arabic-hadith, #idn-hadith {
     padding: 30px 0;
+}
+
+#judul-app {
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 20px;
+    vertical-align: text-top;
 }
