@@ -7,7 +7,7 @@ const showHadithsList = async (data) => {
         let card = ''
         data.forEach(data => {
             card += `
-            <div class="col-3 text-center my-3">
+            <div class="col-12 col-md-3 text-center my-3">
                 <a href="./hadith.html?${data.id}|1">
                     <div class="card-hadith">
                         <i data-feather="book-open"></i>
