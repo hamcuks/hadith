@@ -10,7 +10,7 @@ const showHadithsList = async (data) => {
             <div class="col-12 col-md-3 text-center my-3">
                 <a href="./hadith.html?${data.id}|1">
                     <div class="card-hadith">
-                        <i data-feather="book-open"></i>
+                        <span id="icon-book"></span>
                         <h5>${data.name}</h5>
                         <p>${data.available} data</p>
                     </div>
@@ -41,15 +41,29 @@ const fetchHadithList = async () => {
 }
 
 window.addEventListener('load', async () => {
-    bodyHadith.innerHTML = `
-        <h1 class="text-center align-self-center">Memuat Data</h1>
+    const preloader = `
+        <div class="preloader-data text-center">
+            <div class="lottie-anim"></div>
+            <H3>Memuat Data</H3>
+        </div>
     `
-    await fetchHadithList()
-        .then(async res => {
-            showHadithsList(res)
-            await feather.replace()
-        })
-        .catch(e => console.log(e))
+    bodyHadith.innerHTML = preloader
+
+    lottie.loadAnimation({
+        container: document.querySelector('.lottie-anim'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: './assets/json/loading-data.json'
+    })
+
+    setTimeout(() => {
+        fetchHadithList()
+            .then(async res => {
+                showHadithsList(res)
+            })
+            .catch(e => console.log(e))
+    }, 1000);
 
     let darkModeState = localStorage.getItem('dark-mode')
 

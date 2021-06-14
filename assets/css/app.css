@@ -1,19 +1,18 @@
 :root {
     --bg-body: white;
-    --bg-body-card: #e6eceb17;
-    --bg-card: rgba(255, 255, 255, 0.671);
+    --bg-body-card: #e6eceb;
+    --bg-card: rgb(255, 255, 255);
     --text-color: #222726;
-    --backdrop-blur: blur(5rem);
 }
 
 .dark-mode {
     --bg-body: #1e1e28!important;
-    --bg-body-card: #27273121!important;
-    --bg-card: #3535440e!important;
+    --bg-body-card: #272731!important;
+    --bg-card: #353544!important;
+    --bg-checked-switch: #1A645B;
     --text-color: #E6ECEB!important;
     transition-property: background, color;
     transition-duration: .3s;
-    --backdrop-blur: blur(3rem)
 }
 
 body {
@@ -40,7 +39,7 @@ a.navbar-brand {
     background-color: var(--bg-body-card);
     border-radius: 20px;
     margin-top: 20px;
-    backdrop-filter: var(--backdrop-blur);
+    min-height: 60vh;
 }
 
 .card-hadith {
@@ -90,8 +89,6 @@ a.navbar-brand {
     overflow: hidden;
     cursor: pointer;
     background: var(--bg-body-card);
-    filter: brightness(120%);
-    backdrop-filter: var(--backdrop-blur);
 }
 
 .dark-mode-switch:after {
@@ -99,19 +96,17 @@ a.navbar-brand {
     content: "nights_stay";
     text-align: center;
     position: absolute;
-    line-height: 1.7em;
+    line-height: 1.8em;
     width: 1.7em;
     height: 1.7em;
     top: 0.3em;
     left: 0.4em;
     background: white;
     border-radius: 50%;
-    box-shadow: 1px 0 5px rgba(black, 0.2);
 }
 
 .dark-mode-switch:checked {
     background: var(--bg-body-card);
-    filter: brightness(80%);
 }
 
 .dark-mode-switch:checked:after {
@@ -119,7 +114,7 @@ a.navbar-brand {
     content: "light_mode";
     transform: translateX(1.6em);
     box-shadow: -1px 0 5px rgba(black, 0.2);
-    background: var(--bg-body);
+    background: var(--bg-checked-switch);
     color: white;
 }
 
@@ -181,4 +176,17 @@ svg {
     font-weight: bold;
     margin-left: 20px;
     vertical-align: text-top;
+}
+
+.preloader-data {
+    width: 300px;
+    height: 300px;
+    align-self: center;
+}
+
+#icon-book {
+    font-family: "Material Icons";
+    content: "nights_stay";
+    text-align: center;
+    box-shadow: 1px 0 5px rgba(black, 0.2);
 }

@@ -125,9 +125,6 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     buttonNext.addEventListener('click', nextHadith)
     buttonPrev.addEventListener('click', backHadith)
-
-    // replace i data to feather icon
-    feather.replace()
 })
 
 window.addEventListener('load', () => {
