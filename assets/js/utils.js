@@ -8,5 +8,15 @@ const turnOffDarkMode = () => {
     bodyPage.classList.remove('dark-mode')
 }
 
+const showPreloader = (data) => {
+    lottie.loadAnimation({
+        container: document.querySelector('.lottie-anim'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: `./assets/json/${data}`
+    })
+}
+
 
 

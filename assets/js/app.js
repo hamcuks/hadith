@@ -34,9 +34,16 @@ const fetchHadithList = async () => {
         const res = await axios.get('https://api.hadith.sutanlab.id/books/').catch(err => { throw new Error(err) })
         return res.data.data
     } catch (error) {
-        bodyHadith.innerHTML = `
-            <h4 class="text-center align-self-center">Terjadi Kesalahan. Silahkan Refresh halaman</h4>
+        
+        const preloader = `
+        <div class="preloader-data text-center">
+            <div class="lottie-anim"></div>
+            <H3>Terjadi kesalahan. Silahkan refresh website</H3>
+        </div>
         `
+        bodyHadith.innerHTML = preloader
+
+        showPreloader('loading-failed.json')
     }
 }
 
@@ -49,13 +56,7 @@ window.addEventListener('load', async () => {
     `
     bodyHadith.innerHTML = preloader
 
-    lottie.loadAnimation({
-        container: document.querySelector('.lottie-anim'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: './assets/json/loading-data.json'
-    })
+    showPreloader('loading-data.json')
 
     setTimeout(() => {
         fetchHadithList()

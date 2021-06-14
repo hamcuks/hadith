@@ -21,13 +21,33 @@ const showHadith = async (data) => {
         namaHadith.innerHTML = data.name ?? "Tidak Diketahui"
         numHadith.innerHTML = data.num ?? 0
 
-        detailBody.innerHTML = (data.found) ? `
-            <p id="arabic-hadith">${data.arab}</p>
-            <hr>
-            <p id="idn-hadith">${data.idn}</p>
-        ` : `<h1 class="text-center">Hadith ${data.name} nomor ${data.num} tidak ditemukan</h1>`
+        if (data.found) {
+            detailBody.innerHTML = `<div>
+                <p id="arabic-hadith">${data.arab}</p>
+                <hr>
+                <p id="idn-hadith">${data.idn}</p>
+            </div>`
+        } else {
+            const preloader = `
+            <div class="preloader-data text-center" style="height: 500px">
+                <div class="lottie-anim"></div>
+                <H3>Hadith Nomor ${data.num} tidak ditemukan</H3>
+            </div>
+            `
+            detailBody.innerHTML = preloader
+
+            showPreloader('loading-failed.json')
+        }
     } catch (e) {
-        return e;
+        const preloader = `
+        <div class="preloader-data text-center" style="height: 500px">
+            <div class="lottie-anim"></div>
+            <H3>Terjadi kesalahan. Silahkan refresh website</H3>
+        </div>
+        `
+        detailBody.innerHTML = preloader
+
+        showPreloader('loading-failed.json')
     }
 }
 
@@ -55,7 +75,15 @@ const fetchHadith = async () => {
 
 
     } catch (e) {
-        return e
+        const preloader = `
+        <div class="preloader-data text-center">
+            <div class="lottie-anim"></div>
+            <H3>Terjadi kesalahan. Silahkan refresh website</H3>
+        </div>
+        `
+        detailBody.innerHTML = preloader
+
+        showPreloader('loading-failed.json')
     }
 }
 
@@ -108,9 +136,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
 
     // show user feedback to page
-    detailBody.innerHTML = `
-        <h1 class="text-center">Loading Data...</h1>
+    const preloader = `
+        <div class="preloader-data text-center">
+            <div class="lottie-anim"></div>
+            <H3>Memuat Data</H3>
+        </div>
     `
+    detailBody.innerHTML = preloader
+
+    showPreloader('loading-data.json')
     setTimeout(async () => {
         const data = await fetchHadith()
         showHadith(data)

@@ -46,7 +46,6 @@ a.navbar-brand {
     background-color: var(--bg-card);
     padding: 20px;
     border-radius: 20px;
-	box-shadow: 3px 3px 100px rgba(0, 0, 0, 0.2);
 }
 
 .card-hadith svg {
@@ -179,8 +178,8 @@ svg {
 }
 
 .preloader-data {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     align-self: center;
 }
 
